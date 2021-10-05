@@ -14,12 +14,9 @@ const {
   updateWatch,
 } = require('./controllers/Watches.Controller');
 
-mongoose.connect(
-  'mongodb+srv://feras:123Feras@401-entrance-exam.lfdks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-  () => {
-    console.log('Connected to Mongo Atlas');
-  }
-);
+mongoose.connect(process.env.MONGO_URL, () => {
+  console.log('Connected to Mongo Atlas');
+});
 
 server.get('/watches', getWatches);
 server.post('/addFavourite', favouriteWatch);
@@ -27,6 +24,6 @@ server.get('/favourites', getFavWatch);
 server.delete('/delete/:id', deleteWatch);
 server.put('/update/:id', updateWatch);
 
-server.listen(8000, () => {
+server.listen(process.env.PORT, () => {
   console.log('server started listening on PORT 8000');
 });
